@@ -5,9 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+@NoArgsConstructor
 @Data
+@Entity
 public class Unit {
 
     @Id
@@ -16,4 +18,8 @@ public class Unit {
     private String name;
     private String shorthand;
 
+    public Unit(String name, String shorthand) {
+        this.name = name;
+        this.shorthand = shorthand;
+    }
 }
