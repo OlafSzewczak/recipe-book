@@ -2,8 +2,7 @@ package pl.oszewczak.recipebook.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @Data
@@ -13,11 +12,17 @@ public class ShoppingListItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private Double amount;
-    @OneToOne(cascade = CascadeType.PERSIST)
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Unit unit;
+
     private boolean checked;
+
+    @Setter
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="shopping_list_id")
@@ -27,6 +32,14 @@ public class ShoppingListItem {
         this.name = name;
         this.amount = amount;
         this.unit = unit;
+        this.checked = false;
+    }
+
+    public ShoppingListItem(ShoppingListItem other) {
+        this.name = other.getName();
+        this.amount = other.getAmount();
+        this.unit = other.getUnit();
+        this.checked = other.isChecked();
     }
 }
 
